@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/sample', function () {
+    return response($content, $status)
+              ->header('Content-Type', $value);
+});
+
 Auth::routes();
 
 Route::get('/login/{provider}', 'SocialAuthGoogleController@redirectToProvider')->name('socialite.login');

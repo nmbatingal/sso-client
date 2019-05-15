@@ -56,7 +56,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-                                <a href="{{ route('socialite.login', ['provider' => 'google']) }}" class="btn btn-primary">Login With Google</a>
+                                <a href="{{ route('socialite.login', ['google']) }}" class="btn btn-primary">Login With Google</a>
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
