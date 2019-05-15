@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 
 class SocialAuthGoogleController extends Controller
 {
-    public function redirect()
+    public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    public function callback()
+    public function handleProviderCallback()
     {
         try {
             
@@ -26,17 +26,21 @@ class SocialAuthGoogleController extends Controller
                 Auth::loginUsingId($existUser->id);
             }
             else {
-                $user = new User;
-                $user->name 	= $googleUser->name;
-                $user->email = $googleUser->email;
-                $user->google_id = $googleUser->id;
-                $user->password = md5(rand(1,10000));
+                $user                  = new User;
+                $user->name 	       = $googleUser->name;
+                $user->first_name      = $googleUser->user['given_name'];
+                $user->last_name       = $googleUser->user['family_name'];
+                $user->email           = $googleUser->email;
+                $user->google_id       = $googleUser->id;
+                $user->avatar          = $googleUser->avatar;
+                $user->avatar_original = $googleUser->avatar_original;
                 $user->save();
                 Auth::loginUsingId($user->id);
             }
 
             return redirect()->to('/home');
-			// return response()->json(['google'=>$googleUser]);
+			// return response()->json(['google'=> $googleUser]);
+            // return dd($googleUser);
         } 
         catch (Exception $e) {
             return 'error';
