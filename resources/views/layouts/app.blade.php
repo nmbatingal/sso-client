@@ -73,12 +73,6 @@
         </nav>
 
         <main class="py-4">
-            @auth
-                @if ( Auth::user()->password == null )
-                    @yield('password_change')
-                @endif
-            @endauth
-
             @yield('content')
         </main>
     </div>
